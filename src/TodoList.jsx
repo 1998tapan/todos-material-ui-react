@@ -12,10 +12,16 @@ export default function ToDoList() {
 
     const [todos, setTodos] = useState(initialTodos);
 
+    const removeTodo = id => {
+        setTodos(currTodos => (
+            currTodos.filter(todo => todo.id !== id)
+        ))
+    }
+
     return (
         <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
             {todos.map((todo) => (
-                <ToDoItem todo={todo} key={todo.id} />
+                <ToDoItem todo={todo} key={todo.id} removeTodo={() => removeTodo(todo.id)} />
             ))}
         </List>
     );

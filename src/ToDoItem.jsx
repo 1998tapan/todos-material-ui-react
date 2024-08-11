@@ -6,14 +6,14 @@ import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import CommentIcon from '@mui/icons-material/Comment';
 
-export default function ToDoItem({ todo }) {
+export default function ToDoItem({ todo, removeTodo }) {
 
     const labelId = `checkbox-list-label-${todo.id}`;
     return (
         <ListItem
             key={todo.id}
             secondaryAction={
-                <IconButton edge="end" aria-label="comments">
+                <IconButton edge="end" aria-label="comments" onClick={removeTodo}>
                     <CommentIcon />
                 </IconButton>
             }

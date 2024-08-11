@@ -1,5 +1,5 @@
 import List from '@mui/material/List';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ToDoItem from './ToDoItem';
 import TodoForm from './TodoForm';
 
@@ -11,7 +11,16 @@ export default function ToDoList() {
         { id: 2, text: "Walk the Lion", completed: false }
     ]
 
-    const [todos, setTodos] = useState(initialTodos);
+    const getInitialTodos = () => {
+        const data = localStorage.getItem("todos");
+        if (!data) return [];
+        return JSON.parse(data);
+    }
+    const [todos, setTodos] = useState(getInitialTodos);
+
+    useEffect(() => {
+        localStorage.setItem("todos", JSON.stringify(todos))
+    }, [todos])
 
     const toggleTodo = id => {
         setTodos(currTodos => (
@@ -31,7 +40,7 @@ export default function ToDoList() {
 
     const addTodo = text => {
         setTodos(currTodos => (
-            [...currTodos, { id: 7, text: text, completed: false }]
+            [...currTodos, { id: crypto.randomUUID(), text: text, completed: false }]
         ))
     }
 
